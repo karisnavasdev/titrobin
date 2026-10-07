@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TITS — Texas Institute of Technology &amp; Science</title>
-  <meta name="description" content="TITS is a lovely memecoin for Texas Institute of Technology &amp; Science. Tuition is in Dogecoin. Contract: 0xcomingsoon.">
+  <meta name="description" content="TITS is a lovely Ethereum memecoin for Texas Institute of Technology &amp; Science. Tuition is in Dogecoin. Contract: 0x5d7bd3ba817baa113176faf2579a335c1620d045.">
   <link rel="icon" href="logo.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,9 +59,50 @@
     .marquee-track b { color: var(--green); font-weight: 700; }
     .marquee-track i { color: var(--gold); font-style: normal; }
     @keyframes ticker { to { transform: translateX(-50%); } }
-    @media (prefers-reduced-motion: reduce) {
-      .marquee-track { animation: none; }
+
+    .sky {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
     }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      opacity: 0.55;
+    }
+    .orb-a {
+      width: 280px;
+      height: 280px;
+      left: -60px;
+      top: 12%;
+      background: radial-gradient(circle, rgba(255, 126, 179, 0.55), transparent 68%);
+      animation: drift 16s ease-in-out infinite;
+    }
+    .orb-b {
+      width: 220px;
+      height: 220px;
+      right: -40px;
+      top: 38%;
+      background: radial-gradient(circle, rgba(61, 255, 138, 0.4), transparent 68%);
+      animation: drift 20s ease-in-out infinite reverse;
+    }
+    .orb-c {
+      width: 180px;
+      height: 180px;
+      left: 42%;
+      bottom: 6%;
+      background: radial-gradient(circle, rgba(255, 210, 122, 0.42), transparent 68%);
+      animation: drift 14s ease-in-out infinite 1s;
+    }
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(28px, -36px, 0) scale(1.08); }
+    }
+
+    .marquee, .nav, main, footer { position: relative; z-index: 1; }
 
     .nav {
       position: sticky;
@@ -118,11 +159,25 @@
       justify-content: center;
     }
     .btn-green {
+      position: relative;
+      overflow: hidden;
       background: var(--green);
       color: #062410;
       box-shadow: 0 0 24px rgba(61, 255, 138, 0.35);
     }
-    .btn-green:hover { background: #6dffaa; }
+    .btn-green:hover { background: #6dffaa; transform: translateY(-1px); }
+    .btn-green::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+      transform: translateX(-130%);
+      animation: shine 3.6s ease-in-out infinite;
+    }
+    @keyframes shine {
+      0%, 55% { transform: translateX(-130%); }
+      100% { transform: translateX(130%); }
+    }
     .btn-ghost {
       background: transparent;
       color: var(--ink);
@@ -152,6 +207,47 @@
       object-fit: cover;
       border-radius: 40px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--line), 0 0 48px rgba(255, 126, 179, 0.28);
+      animation: floaty 5.5s ease-in-out infinite, fadein 0.85s ease both;
+    }
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .hero > div { animation: rise 0.85s ease both; animation-delay: 0.12s; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: none; }
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(98, 126, 234, 0.16);
+      box-shadow: inset 0 0 0 1px rgba(140, 164, 255, 0.45);
+      color: #d7e0ff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .pill i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8ca4ff;
+      box-shadow: 0 0 10px #8ca4ff;
+      animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.75); }
     }
     .script {
       margin: 0 0 8px;
@@ -196,7 +292,12 @@
       border-radius: 999px;
       background: rgba(61, 255, 138, 0.08);
       box-shadow: 0 0 0 1px rgba(61, 255, 138, 0.35), 0 0 40px rgba(61, 255, 138, 0.12);
-      margin-bottom: 28px;
+      margin-bottom: 16px;
+      animation: glowpulse 3.4s ease-in-out infinite;
+    }
+    @keyframes glowpulse {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(61, 255, 138, 0.35), 0 0 40px rgba(61, 255, 138, 0.12); }
+      50% { box-shadow: 0 0 0 1px rgba(61, 255, 138, 0.7), 0 0 56px rgba(61, 255, 138, 0.28); }
     }
     .ca-label {
       font-size: 12px;
@@ -207,10 +308,27 @@
     }
     .ca-value {
       font-family: "IBM Plex Mono", ui-monospace, monospace;
-      font-size: clamp(18px, 2vw, 28px);
+      font-size: clamp(12px, 1.55vw, 20px);
       letter-spacing: -0.03em;
+      word-break: break-all;
     }
     .ca .btn { flex-shrink: 0; }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .links a {
+      text-decoration: none;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--glass);
+      box-shadow: inset 0 0 0 1px var(--line);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .links a:hover { transform: translateY(-2px); background: rgba(255, 126, 179, 0.16); }
 
     .section-head { padding: 56px 0 20px; }
     .section-head h2 { margin: 0; font-size: clamp(36px, 5vw, 56px); }
@@ -233,6 +351,14 @@
       cursor: zoom-in;
       border-radius: 24px;
     }
+    .shot { animation: rise 0.7s ease backwards; }
+    .shot:nth-child(2) { animation-delay: 0.06s; }
+    .shot:nth-child(3) { animation-delay: 0.12s; }
+    .shot:nth-child(4) { animation-delay: 0.18s; }
+    .shot:nth-child(5) { animation-delay: 0.24s; }
+    .shot:nth-child(6) { animation-delay: 0.3s; }
+    .shot:nth-child(7) { animation-delay: 0.36s; }
+    .shot:nth-child(8) { animation-delay: 0.42s; }
     .shot img {
       width: 100%;
       border-radius: 24px;
@@ -283,6 +409,14 @@
       padding: 28px 24px;
       background: var(--glass);
       box-shadow: 0 0 0 1px var(--line);
+      animation: rise 0.7s ease backwards;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.2s; }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 0 1px rgba(255, 126, 179, 0.45), 0 16px 40px rgba(0, 0, 0, 0.28);
     }
     .card h3 {
       margin: 12px 0 8px;
@@ -375,6 +509,12 @@
     }
     .lb-bar button:hover { background: rgba(255, 126, 179, 0.28); }
 
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track, .seal, .hero > *, .orb, .pill i, .btn-green::after, .ca, .shot, .card {
+        animation: none;
+      }
+    }
+
     @media (max-width: 860px) {
       .hero, .split, .cards { grid-template-columns: 1fr; }
       .gallery { columns: 1; }
@@ -387,10 +527,16 @@
   </style>
 </head>
 <body>
+  <div class="sky" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+  </div>
+
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>$TITS</span><b>0xcomingsoon</b><span>Tuition in Dogecoin</span><i>Dog discount</i><span>A lovely memecoin</span><span>Texas Institute of Technology &amp; Science</span>
-      <span>$TITS</span><b>0xcomingsoon</b><span>Tuition in Dogecoin</span><i>Dog discount</i><span>A lovely memecoin</span><span>Texas Institute of Technology &amp; Science</span>
+      <span>$TITS</span><b>Ethereum</b><span>0x5d7bd3ba817baa113176faf2579a335c1620d045</span><span>Tuition in Dogecoin</span><i>Dog discount</i><span>Uniswap</span><span>Texas Institute of Technology &amp; Science</span>
+      <span>$TITS</span><b>Ethereum</b><span>0x5d7bd3ba817baa113176faf2579a335c1620d045</span><span>Tuition in Dogecoin</span><i>Dog discount</i><span>Uniswap</span><span>Texas Institute of Technology &amp; Science</span>
     </div>
   </div>
 
@@ -402,9 +548,9 @@
     <nav class="nav-links">
       <a href="#gallery">Gallery</a>
       <a href="#story">Story</a>
-      <a href="#post">The post</a>
       <a href="#enroll">Enroll</a>
-      <button class="btn btn-green copy-btn" type="button">Copy CA</button>
+      <a href="https://x.com/ETHTITSCOIN" target="_blank" rel="noopener">X</a>
+      <a class="btn btn-green" href="https://app.uniswap.org/swap?chain=ethereum&amp;outputCurrency=0x5d7bd3ba817baa113176faf2579a335c1620d045" target="_blank" rel="noopener">Buy on Uniswap</a>
     </nav>
   </header>
 
@@ -413,11 +559,12 @@
       <img class="seal" src="logo.png" alt="TITS crest: Texas Institute of Technology and Science">
       <div>
         <p class="script">a lovely little memecoin</p>
+        <p class="pill"><i></i> Live on Ethereum</p>
         <h1>Texas Institute of Technology &amp; Science</h1>
-        <p class="lede">Tuition is in Dogecoin. You get a discount if you have a dog. Campus is this contract, and the gallery is the yearbook.</p>
+        <p class="lede">Tuition is in Dogecoin. You get a discount if you have a dog. The contract lives on Ethereum, and the gallery is the yearbook.</p>
         <div class="hero-actions">
-          <button class="btn btn-green copy-btn" type="button">Copy contract</button>
-          <a class="btn btn-ghost" href="#gallery">Open the gallery</a>
+          <a class="btn btn-green" href="https://app.uniswap.org/swap?chain=ethereum&amp;outputCurrency=0x5d7bd3ba817baa113176faf2579a335c1620d045" target="_blank" rel="noopener">Buy on Uniswap</a>
+          <button class="btn btn-ghost copy-btn" type="button">Copy contract</button>
         </div>
       </div>
     </section>
@@ -429,11 +576,17 @@
 
       <section class="ca" aria-label="Contract address">
         <div>
-          <div class="ca-label">Contract address</div>
-          <div class="ca-value" id="ca">0xcomingsoon</div>
+          <div class="ca-label">Ethereum contract</div>
+          <div class="ca-value" id="ca">0x5d7bd3ba817baa113176faf2579a335c1620d045</div>
         </div>
         <button class="btn btn-green copy-btn" type="button">Copy CA</button>
       </section>
+      <div class="links">
+        <a href="https://app.uniswap.org/swap?chain=ethereum&amp;outputCurrency=0x5d7bd3ba817baa113176faf2579a335c1620d045" target="_blank" rel="noopener">Uniswap</a>
+        <a href="https://dexscreener.com/ethereum/0x5d7bd3ba817baa113176faf2579a335c1620d045" target="_blank" rel="noopener">Chart</a>
+        <a href="https://etherscan.io/token/0x5d7bd3ba817baa113176faf2579a335c1620d045" target="_blank" rel="noopener">Etherscan</a>
+        <a href="https://x.com/ETHTITSCOIN" target="_blank" rel="noopener">X / Twitter</a>
+      </div>
     </div>
 
     <section class="wrap" id="gallery">
@@ -500,7 +653,7 @@
           <p class="script">how the campus started</p>
           <h2>The post that named the school.</h2>
           <p>On October 29, 2021, Elon Musk said he was thinking of starting a university: Texas Institute of Technology &amp; Science. Two days later he set the tuition.</p>
-          <p>Dogecoin. A discount if you have a dog. The acronym did the rest. $TITS is the memecoin for the school that lived in that post.</p>
+          <p>Dogecoin. A discount if you have a dog. The acronym did the rest. $TITS is the Ethereum memecoin for the school that lived in that post.</p>
           <p><a href="https://x.com/elonmusk/status/1454876031232380928">View the original post on X</a></p>
         </div>
         <div class="tweet-wrap" id="post">
@@ -522,25 +675,25 @@
         <article class="card">
           <div class="num">1</div>
           <h3>Copy the contract</h3>
-          <p>The address is <strong>0xcomingsoon</strong>. Copy it before you do anything else.</p>
+          <p>The Ethereum address is <strong>0x5d7bd3ba817baa113176faf2579a335c1620d045</strong>. Copy it before you do anything else.</p>
         </article>
         <article class="card">
           <div class="num">2</div>
-          <h3>Paste it in</h3>
-          <p>Import the token in your wallet, or paste the address on a decentralized exchange.</p>
+          <h3>Buy on Uniswap</h3>
+          <p>Open Uniswap on Ethereum and paste the contract. Pay with ETH.</p>
         </article>
         <article class="card">
           <div class="num">3</div>
           <h3>Check it twice</h3>
-          <p>Trade only if the contract matches 0xcomingsoon. Dogs still get the discount.</p>
+          <p>Trade only if the contract matches 0x5d7bd3ba817baa113176faf2579a335c1620d045. Dogs still get the discount.</p>
         </article>
       </div>
     </section>
   </main>
 
   <footer class="wrap">
-    <div><strong>$TITS</strong> · Texas Institute of Technology &amp; Science</div>
-    <div>Unofficial fan memecoin. Not affiliated with Elon Musk, Tesla, SpaceX, X, or Robinhood. Not financial advice.</div>
+    <div><strong>$TITS</strong> · Ethereum · <a href="https://x.com/ETHTITSCOIN" target="_blank" rel="noopener">@ETHTITSCOIN</a></div>
+    <div>Unofficial fan memecoin on Ethereum. Not affiliated with Elon Musk, Tesla, SpaceX, or X. Not financial advice.</div>
   </footer>
 
   <dialog id="lightbox" aria-label="Gallery image">
@@ -559,7 +712,7 @@
 
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
-    const CA = "0xcomingsoon";
+    const CA = "0x5d7bd3ba817baa113176faf2579a335c1620d045";
     const toast = document.getElementById("toast");
     let toastTimer;
 
